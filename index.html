@@ -26,7 +26,7 @@
   <body>
     <!-- Header -->
     <header class="header">
-      <div class="header container">
+      <div class="header-container container">
         <nav class="header-nav">
           <a href="./index.html" class="logo"><span>Web</span>Studio</a>
           <ul class="nav-list">
@@ -65,7 +65,9 @@
       <section class="hero section">
         <div class="hero container">
           <h1 class="hero-title">Effective Solutions for Your Business</h1>
-          <button type="button" class="hero-btn">Order Service</button>
+          <button type="button" class="hero-btn" data-modal-open>
+            Order Service
+          </button>
         </div>
       </section>
 
@@ -390,6 +392,7 @@
             digital marketing &amp; growth solutions.
           </p>
         </div>
+
         <div class="socials-wrap">
           <h3 class="footer-subtitle">Social media</h3>
           <ul class="socials-list">
@@ -400,6 +403,7 @@
                 </svg>
               </a>
             </li>
+
             <li class="socials-item">
               <a href="" class="social-link" aria-label="Twitter">
                 <svg class="social-icon">
@@ -407,6 +411,7 @@
                 </svg>
               </a>
             </li>
+
             <li class="socials-item">
               <a href="" class="social-link" aria-label="Facebook">
                 <svg class="social-icon">
@@ -414,6 +419,7 @@
                 </svg>
               </a>
             </li>
+
             <li class="socials-item">
               <a href="" class="social-link" aria-label="LinkedIn">
                 <svg class="social-icon">
@@ -425,5 +431,19 @@
         </div>
       </div>
     </footer>
+
+    <!-- Modal window -->
+
+    <div class="backdrop is-hidden" data-modal>
+      <div class="modal">
+        <button type="button" class="modal-close-btn" data-modal-close>
+          <svg class="close-icon">
+            <use href="./images/icons.svg#close-icon"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <script src="./js/modal.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@
   --text-color: #434455;
   --secondary-text-color: #e7e9fc;
   --main-title-color: #ffffff;
+  --white-bg: #ffffff;
 
   --button-color: #4d5ae5;
   --secondary-button-color: #f4f4fd;
@@ -26,12 +27,16 @@
     0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
   --portfolio-btn-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1),
     0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
+
+  --timing-function: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
   font-family: "Roboto", sans-serif;
   color: var(--text-color);
   font-size: 16px;
+
+  padding-top: 76px;
 }
 
 h1,
@@ -70,7 +75,20 @@ a {
 
 /* -----------------------Header------------------------- */
 .header {
+  background-color: var(--white-bg);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  min-height: 76px;
   border-bottom: 1px solid var(--button-border-color);
+  z-index: 10;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
 }
 
 .logo {
@@ -98,7 +116,9 @@ a {
   text-decoration: none;
 
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
+
+  transition: color var(--timing-function);
 }
 
 .address-link {
@@ -111,18 +131,32 @@ a {
   text-decoration: none;
 
   padding-top: 24px;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
+
+  transition: color var(--timing-function);
 }
 
 .nav-link:is(:hover, :focus),
-.address-link:is(:hover, :focus),
-.nav-link.current {
+.address-link:is(:hover, :focus) {
   color: var(--hover-text-color);
 }
 
-.header.container {
-  display: flex;
-  align-items: center;
+.nav-link.current {
+  color: var(--hover-text-color);
+  position: relative;
+}
+
+.current::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: var(--hover-element-color);
+  border-radius: 2px;
 }
 
 .header-nav {
@@ -207,6 +241,8 @@ a {
   border: none;
   border-radius: 4px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+
+  transition: background-color var(--timing-function);
 }
 
 .hero-btn:hover,
@@ -341,6 +377,8 @@ a {
   align-items: center;
 
   border-radius: 50%;
+
+  transition: background-color var(--timing-function);
 }
 
 .social-link:hover,
@@ -372,14 +410,13 @@ a {
 
   flex-basis: calc((100% - 24px * 5) / 6);
   height: 88px;
-  border-radius: 4px;
-  border: 1px solid var(--clients-icon-color);
 }
-
 .client-icon {
   width: 104px;
   height: 56px;
   fill: var(--clients-icon-color);
+
+  transition: fill var(--timing-function);
 }
 
 .client-link {
@@ -389,6 +426,11 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border-radius: 4px;
+  border: 1px solid var(--clients-icon-color);
+
+  transition: border var(--timing-function);
 }
 
 .client-link:is(:hover, :focus) {
@@ -435,6 +477,8 @@ a {
 
 .footer .social-link {
   background-color: var(--footer-icon-bg);
+
+  transition: background-color var(--timing-function);
 }
 
 .footer .social-icon {
@@ -446,6 +490,81 @@ a {
 .footer .social-link:focus {
   background-color: var(--accent-socials-color);
 }
+
+/* -----------------------Modal------------------------- */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(46, 47, 66, 0.4);
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  transition: opacity var(--timing-function), visibility var(--timing-function);
+}
+
+.backdrop.is-hidden {
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+
+  width: 408px;
+  height: 576px;
+
+  background-color: #fcfcfc;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 1px 3px rgba(0, 0, 0, 0.12),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transition: transform var(--timing-function);
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+
+  width: 24px;
+  height: 24px;
+  background-color: #e7e9fc;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #000000;
+
+  transition: background-color var(--timing-function),
+    color var(--timing-function);
+}
+
+.modal-close-btn:hover {
+  background-color: var(--hover-element-color);
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.close-icon {
+  display: block;
+  width: 8px;
+  height: 8px;
+  fill: currentColor;
+}
+
 /* --------------------------------------------------------- */
 /* -----------------------Portfolio------------------------- */
 .portfolio {
@@ -475,6 +594,10 @@ a {
   border: 1px solid var(--button-border-color);
   border-radius: 4px;
   cursor: pointer;
+
+  transition: background-color var(--timing-function),
+    color var(--timing-function), border var(--timing-function),
+    box-shadow var(--timing-function);
 }
 
 .btn-list-item:not(:last-child) {
@@ -485,8 +608,13 @@ a {
 .portfolio-btn:focus {
   background-color: var(--hover-element-color);
   color: var(--button-text-color);
-  box-shadow: var(--portfolio-btn-shadow);
+
   border: 1px solid transparent;
+  box-shadow: var(--portfolio-btn-shadow);
+}
+
+.portfolio-link {
+  box-shadow: var(--);
 }
 
 .card-descr {
@@ -494,12 +622,39 @@ a {
   letter-spacing: 0.02em;
 }
 
-/* .card-text {
+.thumb {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
   color: var(--secondary-button-color);
-  background-color: var(--accent-color);
   line-height: 1.5;
   letter-spacing: 0.02em;
-} */
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  background-color: var(--accent-color);
+  border: 1px solid #000000;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  padding: 40px 32px;
+  transform: translateY(100%);
+  opacity: 0;
+
+  transition: transform var(--timing-function), opacity var(--timing-function);
+}
+
+.portfolio-card:hover .card-text {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .portfolio-cards-list {
   display: flex;
@@ -513,6 +668,9 @@ a {
 
 .portfolio-card {
   flex-basis: calc((100% - 24px * 2) / 3);
+
+  transition: transform var(--timing-function),
+    box-shadow var(--timing-function);
 }
 
 .portfolio-card:is(:hover, :focus) {
